@@ -1,1 +1,33 @@
+eureka:
+  instance:
+    preferIpAddress: true
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
 
+server:
+  port: 8081
+
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: security-service
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user
+    username: user
+    password: user
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    url: jdbc:postgresql://localhost:5432/user
+    username: user
+    password: user
+
+
+jwt:
+  secret: 34872398FHDSFGSFGF78DSF376FSEFDSFGSF423GSDF
+  duration: 200000
