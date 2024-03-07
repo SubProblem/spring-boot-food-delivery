@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  user-db:
+    image: postgres
+    container_name: user-db
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=userdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+    healthcheck:
+      test: [ "CMD", "pg_isready -U user" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
