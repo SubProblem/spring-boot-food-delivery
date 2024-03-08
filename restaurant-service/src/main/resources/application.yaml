@@ -1,1 +1,29 @@
+eureka:
+  instance:
+    preferIpAddress: true
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
 
+
+server:
+  port: 8082
+
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: restaurant-service
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/restaurant-db
+    username: restaurant
+    password: restaurant
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    url: jdbc:postgresql://localhost:5433/restaurant-db
+    username: restaurant
+    password: restaurant
