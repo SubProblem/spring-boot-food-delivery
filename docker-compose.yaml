@@ -19,5 +19,24 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
+  restaurant-db:
+    image: postgres
+    container_name: restaurant-db
+    restart: on-failure
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=restaurant-db
+      - POSTGRES_USER=restaurant
+      - POSTGRES_PASSWORD=restaurant
+    healthcheck:
+      test: [ "CMD", "pg_isready -U restaurant" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - pg_data_2:/var/lib/postgresql/data
+
 volumes:
   pg_data:
+  pg_data_2:
