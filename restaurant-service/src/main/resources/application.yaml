@@ -18,12 +18,11 @@ spring:
     name: restaurant-service
   main:
     allow-circular-references: true
+  jpa:
+    show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/restaurant-db
+    jdbc-url: jdbc:postgresql://localhost:5433/restaurantdb
     username: restaurant
     password: restaurant
     driver-class-name: org.postgresql.Driver
-  flyway:
-    url: jdbc:postgresql://localhost:5433/restaurant-db
-    username: restaurant
-    password: restaurant
+
