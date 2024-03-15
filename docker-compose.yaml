@@ -26,7 +26,7 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_DB=restaurant-db
+      - POSTGRES_DB=restaurantdb
       - POSTGRES_USER=restaurant
       - POSTGRES_PASSWORD=restaurant
     healthcheck:
@@ -37,6 +37,26 @@ services:
     volumes:
       - pg_data_2:/var/lib/postgresql/data
 
+
+  order-db:
+    image: postgres
+    container_name: order-db
+    restart: on-failure
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=orderdb
+      - POSTGRES_USER=order
+      - POSTGRES_PASSWORD=order
+    healthcheck:
+      test: [ "CMD", "pg_isready -U order" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - pg_data_3:/var/lib/postgresql/data
+
 volumes:
   pg_data:
   pg_data_2:
+  pg_data_3:
