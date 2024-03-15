@@ -1,9 +1,6 @@
 package com.subproblem.orderservice.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.math.BigDecimal
 
 @Entity
@@ -13,7 +10,9 @@ class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
 
-    var orderId: Int = 0
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    lateinit var order: Order
 
     var menuItemId: Int = 0
 
