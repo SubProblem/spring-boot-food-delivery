@@ -1,1 +1,27 @@
+eureka:
+  instance:
+    preferIpAddress: true
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
 
+
+server:
+  port: 8083
+
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: order-service
+  main:
+    allow-circular-references: true
+  jpa:
+    show-sql: true
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5433/orderdb
+    username: order
+    password: order
+    driver-class-name: org.postgresql.Driver
