@@ -22,6 +22,7 @@ class Order {
 
     var createdAt: LocalDateTime = LocalDateTime.now()
 
+    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
     var orderItems: MutableList<OrderItem> = mutableListOf()
 
 }
