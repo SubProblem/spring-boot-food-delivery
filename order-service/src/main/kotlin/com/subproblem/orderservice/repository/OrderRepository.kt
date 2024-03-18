@@ -8,7 +8,7 @@ import java.math.BigDecimal
 
 interface OrderRepository : JpaRepository<Order, Int> {
     fun findByUserId(userId: Int): List<Order>
-    fun findByRestaurantId(restaurantId: Int): List<Order>
+    fun findByRestaurantIdAndUserId(restaurantId: Int, userId: Int): List<Order>
     fun findByStatus(status: OrderStatus): List<Order>
     fun findByUserIdAndStatus(userId: Int, status: OrderStatus): List<Order>
 
