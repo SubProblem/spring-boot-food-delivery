@@ -15,9 +15,9 @@ interface OrderRepository : JpaRepository<Order, Int> {
     @Query("""
         SELECT o FROM Order o
         JOIN FETCH o.orderItems
-        WHERE o.id = :orderId
+        WHERE o.id = :orderId AND o.userId = :userId
     """)
-    fun findOrderWithOrderItemsById(orderId: Int): Order?
+    fun findOrderWithOrderItemsByIdAndUserId(orderId: Int, userId: Int): Order?
 
     @Query("""
         SELECT SUM(o.totalAmount) FROM Order o
