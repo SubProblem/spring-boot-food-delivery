@@ -22,7 +22,6 @@ class RequestMapper {
 
     fun requestToOrder(request: OrderRequestDTO): Order {
         val order =  Order().apply {
-            userId = request.userId
             restaurantId = request.restaurantId
             status = OrderStatus.valueOf(request.status)
             totalAmount = request.totalAmount
