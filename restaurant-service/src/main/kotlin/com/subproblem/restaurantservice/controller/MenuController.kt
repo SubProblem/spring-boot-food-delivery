@@ -1,7 +1,9 @@
 package com.subproblem.restaurantservice.controller
 
 import com.subproblem.restaurantservice.dto.request.MenuRequestDTO
+import com.subproblem.restaurantservice.dto.response.MenuItemResponseDTO
 import com.subproblem.restaurantservice.dto.response.MenuResponseDTO
+import com.subproblem.restaurantservice.dto.response.RestaurantResponseDTO
 import com.subproblem.restaurantservice.service.MenuService
 import com.subproblem.restaurantservice.service.RestaurantService
 import org.springframework.http.HttpStatus
@@ -32,4 +34,9 @@ class MenuController(private val menuService: MenuService) {
     @PostMapping
     fun addMenu(@RequestBody request: MenuRequestDTO): ResponseEntity<HttpStatus> =
         menuService.addMenu(request)
+
+    @GetMapping("/byIds")
+    fun getMenuItemsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> =
+        menuService.getMenuItemsByIds(ids)
+
 }
