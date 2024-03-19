@@ -17,5 +17,9 @@ interface RestaurantRepository : JpaRepository<Restaurant,Int> {
 
     @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menus")
     fun findAllWithMenus(): List<Restaurant>
+    
+    @Query("SELECT r FROM RESTAURANT r WHERE r.id IN :ids ")
+    fun findByIds(ids: List<Int>): List<Restaurant>
+
 
 }
