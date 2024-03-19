@@ -13,7 +13,7 @@ interface OrderItemRepository : JpaRepository<OrderItem, Int> {
     fun findByOrderRestaurantId(restaurantId: Int): List<OrderItem>
 
     @Query("""
-        SELECT i FROM OrderItem
+        SELECT i FROM OrderItem i
         JOIN i.order o
         WHERE o.userId = :userId
         AND
