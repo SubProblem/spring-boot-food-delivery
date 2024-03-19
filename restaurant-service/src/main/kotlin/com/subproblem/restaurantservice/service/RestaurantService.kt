@@ -106,4 +106,13 @@ class RestaurantService(
             .status(HttpStatus.CREATED)
             .build()
     }
+
+    fun findRestaurantsByIds(ids: List<Int>): ResponseEntity<List<RestaurantResponseDTO>> {
+        val restaurants = restaurantRepository.findByIds(ids)
+        val response = responseMapper.restaurantResponseToList(restaurants)
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(response)
+    }
 }
