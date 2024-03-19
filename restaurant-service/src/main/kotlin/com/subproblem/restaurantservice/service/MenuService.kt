@@ -1,7 +1,9 @@
 package com.subproblem.restaurantservice.service
 
 import com.subproblem.restaurantservice.dto.request.MenuRequestDTO
+import com.subproblem.restaurantservice.dto.response.MenuItemResponseDTO
 import com.subproblem.restaurantservice.dto.response.MenuResponseDTO
+import com.subproblem.restaurantservice.dto.response.RestaurantResponseDTO
 import com.subproblem.restaurantservice.repository.MenuItemRepository
 import com.subproblem.restaurantservice.repository.MenuRepository
 import com.subproblem.restaurantservice.repository.RestaurantRepository
@@ -17,7 +19,8 @@ class MenuService(
     private val restaurantRepository: RestaurantRepository,
     private val menuRepository: MenuRepository,
     private val requestMapper: RequestMapper,
-    private val responseMapper: ResponseMapper
+    private val responseMapper: ResponseMapper,
+    private val menuItemRepository: MenuItemRepository
 ) {
 
     fun getAllMenus(): ResponseEntity<List<MenuResponseDTO>> {
@@ -65,5 +68,14 @@ class MenuService(
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .build()
+    }
+
+    fun findMenuItemsByIds(ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> {
+        val menuItems = menuItemRepository.findByIds(ids)
+        val response = responseMapper.menuItemResponseToList(menuItems)
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(response)
     }
 }
