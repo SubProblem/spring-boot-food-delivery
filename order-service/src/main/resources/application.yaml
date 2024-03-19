@@ -21,7 +21,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/orderdb
+    jdbc-url: jdbc:postgresql://localhost:5434/orderdb
     username: order
     password: order
     driver-class-name: org.postgresql.Driver
