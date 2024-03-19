@@ -15,6 +15,12 @@ spring:
           uri: lb://security-service
           predicates:
             - Path=/api/v1/auth/**
+        - id:
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - AuthFilter
 
 server:
   port: 8060
