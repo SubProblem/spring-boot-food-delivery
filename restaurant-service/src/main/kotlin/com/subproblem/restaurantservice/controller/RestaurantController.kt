@@ -45,5 +45,9 @@ class RestaurantController(private val restaurantService: RestaurantService) {
     fun addRestaurant(@RequestBody request: RestaurantRequestDTO): ResponseEntity<HttpStatus> =
         restaurantService.addRestaurant(request)
 
+    @GetMapping("/byIds")
+    fun getRestaurantsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<RestaurantResponseDTO>> {
+        return restaurantService.findRestaurantsByIds(ids)
+    }
 
 }
