@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.Query
 import java.math.BigDecimal
 
 interface OrderRepository : JpaRepository<Order, Int> {
+    @Query("""
+        SELECT o FROM Order o
+        JOIN FETCH o.orderItems
+        WHERE o.userId = :userId
+    """)
     fun findByUserId(userId: Int): List<Order>
     fun findByRestaurantIdAndUserId(restaurantId: Int, userId: Int): List<Order>
     fun findByStatus(status: OrderStatus): List<Order>
