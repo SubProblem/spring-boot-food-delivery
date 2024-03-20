@@ -5,6 +5,7 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "orders")
 class Order {
 
     @Id
