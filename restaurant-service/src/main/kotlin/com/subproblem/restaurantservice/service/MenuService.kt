@@ -1,9 +1,11 @@
 package com.subproblem.restaurantservice.service
 
+import com.subproblem.restaurantservice.dto.request.MenuItemRequestDTO
 import com.subproblem.restaurantservice.dto.request.MenuRequestDTO
 import com.subproblem.restaurantservice.dto.response.MenuItemResponseDTO
 import com.subproblem.restaurantservice.dto.response.MenuResponseDTO
 import com.subproblem.restaurantservice.dto.response.RestaurantResponseDTO
+import com.subproblem.restaurantservice.entity.MenuItem
 import com.subproblem.restaurantservice.repository.MenuItemRepository
 import com.subproblem.restaurantservice.repository.MenuRepository
 import com.subproblem.restaurantservice.repository.RestaurantRepository
@@ -70,12 +72,34 @@ class MenuService(
             .build()
     }
 
-    fun findMenuItemsByIds(ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> {
+    fun getMenuItemsByIds(ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> {
         val menuItems = menuItemRepository.findByIds(ids)
+        menuItems.forEach {
+            println(it.toString())
+        }
         val response = responseMapper.menuItemResponseToList(menuItems)
 
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(response)
+    }
+
+    fun addMenuItems(request: MenuItemRequestDTO): ResponseEntity<HttpStatus> {
+
+        val menu = menuRepository.findById(request.menuId)
+            .orElseThrow { NoSuchElementException("Menu not found") }
+
+        val menuItem = MenuItem().apply {
+            this.menu = menu
+            name = request.name
+            description = request.description
+            price = request.price
+        }
+
+        menuItemRepository.save(menuItem)
+
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .build()
     }
 }
