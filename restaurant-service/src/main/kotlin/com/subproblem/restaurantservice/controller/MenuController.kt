@@ -1,5 +1,6 @@
 package com.subproblem.restaurantservice.controller
 
+import com.subproblem.restaurantservice.dto.MenuItemProjection
 import com.subproblem.restaurantservice.dto.request.MenuItemRequestDTO
 import com.subproblem.restaurantservice.dto.request.MenuRequestDTO
 import com.subproblem.restaurantservice.dto.response.MenuItemResponseDTO
@@ -37,7 +38,7 @@ class MenuController(private val menuService: MenuService) {
         menuService.addMenu(request)
 
     @GetMapping("/byIds")
-    fun getMenuItemsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> =
+    fun getMenuItemsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<MenuItemProjection>> =
         menuService.getMenuItemsByIds(ids)
 
     @PostMapping("/menuItem")
