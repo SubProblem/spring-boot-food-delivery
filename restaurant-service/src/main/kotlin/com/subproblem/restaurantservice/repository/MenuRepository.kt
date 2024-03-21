@@ -14,7 +14,4 @@ interface MenuRepository : JpaRepository<Menu, Int> {
     @Query("SELECT DISTINCT m FROM Menu m LEFT JOIN FETCH m.menuItems")
     fun findAllWithMenuItems(): List<Menu>
 
-    @Query("SELECT DISTINCT m FROM Menu m LEFT JOIN FETCH m.menuItems")
-    fun findAllWithMenuItemsAsync(): List<Menu>
-
 }
