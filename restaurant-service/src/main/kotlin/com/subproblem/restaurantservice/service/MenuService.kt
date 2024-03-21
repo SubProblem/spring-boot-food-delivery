@@ -1,5 +1,6 @@
 package com.subproblem.restaurantservice.service
 
+import com.subproblem.restaurantservice.dto.MenuItemProjection
 import com.subproblem.restaurantservice.dto.request.MenuItemRequestDTO
 import com.subproblem.restaurantservice.dto.request.MenuRequestDTO
 import com.subproblem.restaurantservice.dto.response.MenuItemResponseDTO
@@ -15,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MenuService(
@@ -72,16 +74,13 @@ class MenuService(
             .build()
     }
 
-    fun getMenuItemsByIds(ids: List<Int>): ResponseEntity<List<MenuItemResponseDTO>> {
+    @Transactional
+    fun getMenuItemsByIds(ids: List<Int>): ResponseEntity<List<MenuItemProjection>> {
         val menuItems = menuItemRepository.findByIds(ids)
-        menuItems.forEach {
-            println(it.toString())
-        }
-        val response = responseMapper.menuItemResponseToList(menuItems)
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(response)
+            .body(menuItems)
     }
 
     fun addMenuItems(request: MenuItemRequestDTO): ResponseEntity<HttpStatus> {
