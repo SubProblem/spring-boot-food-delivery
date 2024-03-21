@@ -1,5 +1,6 @@
 package com.subproblem.restaurantservice.controller
 
+import com.subproblem.restaurantservice.dto.RestaurantProjection
 import com.subproblem.restaurantservice.dto.request.RestaurantRequestDTO
 import com.subproblem.restaurantservice.dto.response.RestaurantResponseDTO
 import com.subproblem.restaurantservice.service.RestaurantService
@@ -46,7 +47,7 @@ class RestaurantController(private val restaurantService: RestaurantService) {
         restaurantService.addRestaurant(request)
 
     @GetMapping("/byIds")
-    fun getRestaurantsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<RestaurantResponseDTO>> {
+    fun getRestaurantsByIds(@RequestParam("ids") ids: List<Int>): ResponseEntity<List<RestaurantProjection>> {
         return restaurantService.findRestaurantsByIds(ids)
     }
 
