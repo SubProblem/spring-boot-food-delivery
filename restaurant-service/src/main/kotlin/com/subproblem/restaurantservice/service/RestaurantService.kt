@@ -1,5 +1,6 @@
 package com.subproblem.restaurantservice.service
 
+import com.subproblem.restaurantservice.dto.RestaurantProjection
 import com.subproblem.restaurantservice.dto.request.RestaurantRequestDTO
 import com.subproblem.restaurantservice.dto.response.RestaurantResponseDTO
 import com.subproblem.restaurantservice.entity.Restaurant
@@ -37,7 +38,7 @@ class RestaurantService(
 
     fun getRestaurantsWithMenus(): ResponseEntity<List<RestaurantResponseDTO>> {
 
-        val menus = menuRepository.findAllWithMenuItemsAsync()
+        val menus = menuRepository.findAllWithMenuItems()
         val restaurants = restaurantRepository.findAllWithMenus()
 
         restaurants.map { restaurant ->
@@ -107,12 +108,12 @@ class RestaurantService(
             .build()
     }
 
-    fun findRestaurantsByIds(ids: List<Int>): ResponseEntity<List<RestaurantResponseDTO>> {
+    @Transactional
+    fun findRestaurantsByIds(ids: List<Int>): ResponseEntity<List<RestaurantProjection>> {
         val restaurants = restaurantRepository.findByIds(ids)
-        val response = responseMapper.restaurantResponseToList(restaurants)
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(response)
+            .body(restaurants)
     }
 }
