@@ -21,6 +21,13 @@ spring:
             - Path=/api/v1/orders/**
           filters:
             - AuthFilter
+        - id:
+          uri: lb://restaurant-service
+          predicates:
+            - Path=/api/v1/**
+          filters:
+            - AuthFilter
+
 
 server:
   port: 8060
