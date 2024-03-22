@@ -56,6 +56,12 @@ services:
     volumes:
       - pg_data_3:/var/lib/postgresql/data
 
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 volumes:
   pg_data:
   pg_data_2:
