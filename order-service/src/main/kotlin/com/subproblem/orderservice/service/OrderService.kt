@@ -5,7 +5,8 @@ import com.subproblem.orderservice.dto.Restaurant
 import com.subproblem.orderservice.dto.request.OrderRequestDTO
 import com.subproblem.orderservice.dto.response.OrderResponseDTO
 import com.subproblem.orderservice.entity.OrderStatus
-import com.subproblem.orderservice.repository.OrderItemRepository
+import com.subproblem.orderservice.producer.NotificationMessage
+import com.subproblem.orderservice.producer.Producer
 import com.subproblem.orderservice.repository.OrderRepository
 import com.subproblem.orderservice.util.RequestMapper
 import com.subproblem.orderservice.util.ResponseMapper
@@ -21,10 +22,10 @@ import kotlinx.coroutines.reactor.awaitSingleOrNull
 @Service
 class OrderService(
     private val orderRepository: OrderRepository,
-    private val orderItemRepository: OrderItemRepository,
     private val responseMapper: ResponseMapper,
     private val requestMapper: RequestMapper,
-    private val webClient: WebClient.Builder
+    private val webClient: WebClient.Builder,
+    private val producer: Producer
 ) {
 
 
@@ -58,7 +59,7 @@ class OrderService(
     }
 
     @Transactional
-    fun makeOrder(userId: Int, request: OrderRequestDTO): ResponseEntity<OrderResponseDTO> {
+    fun makeOrder(userId: Int, userEmail: String, request: OrderRequestDTO): ResponseEntity<OrderResponseDTO> {
 
 
         val order = requestMapper.requestToOrder(request).apply {
@@ -67,6 +68,9 @@ class OrderService(
 
         orderRepository.save(order)
         val response = responseMapper.orderToResponseDTO(order)
+
+        val message = NotificationMessage(userEmail,response.createdAt)
+        producer.sendMessage(message)
 
         return ResponseEntity
             .status(HttpStatus.CREATED)
