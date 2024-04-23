@@ -33,7 +33,8 @@ class OrderController(private val orderService: OrderService) {
     @PostMapping
     fun makeOrder(@RequestBody order: OrderRequestDTO, request: HttpServletRequest): ResponseEntity<OrderResponseDTO> {
         val userId = request.getHeader("auth-header-id").toInt()
-        return orderService.makeOrder(userId, order)
+        val userEmail = request.getHeader("user-email")
+        return orderService.makeOrder(userId, userEmail, order)
     }
 
     @GetMapping("/full")
