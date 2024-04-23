@@ -31,3 +31,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+    queue:
+      name: notification_queue
+    exchange:
+      name: notification_exchange
+    routing:
+      key: notification_key
