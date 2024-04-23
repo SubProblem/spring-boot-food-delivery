@@ -1,1 +1,44 @@
-spring.application.name=notification-service
+eureka:
+  instance:
+    preferIpAddress: true
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8084
+
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: notification-service
+  main:
+    allow-circular-references: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    queue:
+      name: notification_queue
+    exchange:
+      name: notification_exchange
+    routing:
+      key: notification_key
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:  # Your Gmail
+    password:  # Your password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class TopicConfig {
-
     fun queue(): Queue =
         Queue("orderQueue")
 }
